@@ -19,7 +19,7 @@ app.use('/', index);
 app.use('/chat', chat);
 
 var server = http.createServer(app);
-server.listen(80);
+server.listen(8080);
 
 
 var io = require('socket.io').listen(server);
