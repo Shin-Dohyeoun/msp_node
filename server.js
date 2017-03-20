@@ -18,8 +18,12 @@ var chat = require('./routes/chat');
 app.use('/', index);
 app.use('/chat', chat);
 
+//port setup
+var port = process.env.PORT || 3000;
+
+
 var server = http.createServer(app);
-server.listen(process.env.PORT);
+server.listen(port);
 
 
 var io = require('socket.io').listen(server);
