@@ -26,6 +26,20 @@ var server = http.createServer(app);
 server.listen(port);
 
 
+
+var azure = require('azure');
+
+var notificationHubService = azure.createNotificationHubService('test','Endpoint=sb://azurenotificationtest.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=Q+Rgz8F1XhNO83Tl3GMytYa3jE6PGS6zAy1WliFD2zg=');
+
+
+var payload = {
+  data: {
+    message: 'Hello!'
+  }
+};
+
+
+
 var io = require('socket.io').listen(server);
 io.sockets.on('connection',function(socket){
     socket.emit('toclient',{msg:'Welcome !'});
@@ -34,4 +48,12 @@ io.sockets.on('connection',function(socket){
         socket.emit('toclient',data); // 해당 클라이언트에게만 보냄. 다른 클라이언트에 보낼려면?
         console.log('Message from client :'+data.msg);
     })
+
+    notificationHubService.gcm.send(null, payload, function(error){
+    if(!error){
+        //notification sent
+            console.log('send');
+    }
+});
+
 });

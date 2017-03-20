@@ -7,9 +7,6 @@ router.get('/', function(req, res, next) {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
-    console.log(req.protocol);
-    console.log(req.get('host') + req.originalUrl);
-    console.log(req.originalUrl);
     
     res.render('chat', {l_url : req.protocol+"://"+req.get('host')});
 });
